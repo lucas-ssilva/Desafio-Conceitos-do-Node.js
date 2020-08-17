@@ -16,7 +16,7 @@ function validateLikes(request, response, next) {
   const repositorieIndex = repositories.findIndex(x => x.id === id);
 
   if(likes) {
-    return response.status(400).json({likes: `${repositories[repositorieIndex].likes}`})
+    return response.status(400).json({likes: repositories[repositorieIndex].likes})
   }
   return next();
 }
