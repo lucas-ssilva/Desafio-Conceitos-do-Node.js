@@ -10,6 +10,15 @@ app.use(cors());
 
 const repositories = [];
 
+function validateLikes(request, response, next) {
+  const {likes} = request.body;
+
+  if(likes) {
+    return response.status(400).json({error: 'likes can only be updated in route likes'})
+  }
+  return next();
+}
+
 app.get("/repositories", (request, response) => {
   return response.json(repositories);
 });
@@ -25,7 +34,7 @@ app.post("/repositories", (request, response) => {
   
 });
 
-app.put("/repositories/:id", (request, response) => {
+app.put("/repositories/:id", validateLikes, (request, response) => {
    const {id} = request.params;
    const {title, url, techs} = request.body;
 
