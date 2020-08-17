@@ -12,9 +12,11 @@ const repositories = [];
 
 function validateLikes(request, response, next) {
   const {likes} = request.body;
+  const {id} = request.params;
+  const repositorieIndex = repositories.findIndex(x => x.id === id);
 
   if(likes) {
-    return response.status(400).json({error: 'likes can only be updated in route likes'})
+    return response.status(400).json({likes: `${repositories[repositorieIndex].likes}`})
   }
   return next();
 }
